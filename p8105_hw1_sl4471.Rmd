@@ -116,3 +116,9 @@ ggplot(hw2_df, aes(x = x, y = y, color = vec_factor)) + geom_point()
 ```
 
 As we can see in the plots, the boundary line of two different colors is _y = x_. Above the line are the points that _x + y > 0_, while below the line are those _x + y < 0_. Since both the numeric vector and factor vector are created by coercing the logical vector, all the three scatterplots share the same boundary line. 
+
+In the first scatterplot, below the boundary line is red part and also as known as the "false" part. Above the boundary line is the green part which is also the "true" part.
+
+In the second scatterplot, the color changes from dark blue to light blue according to the different value of numeric variable. 
+
+In the third scatterplot, it look like showing the same image as the first scatterplot does. My opinion for this is that the factor variable is created by coercing the logical vector, so the results of it are placed into two catagories which seems as same as the first scatterplot shows. But they are still two different variables. 
