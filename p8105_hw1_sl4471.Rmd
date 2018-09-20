@@ -26,7 +26,11 @@ hw1_df = tibble(
   vec_char = c("hello", "data", "science", "my", "friend", "I", "can", "figure", "it", "out"),
   vec_factor = factor(c("apple", "banana", "orange", "grape", "peach", "lemon", "stawberry", "blueberry", "pear", "watermelon"))
 )
+```
 
+We can view the data frame here.
+
+```{r view_data_frame, echo = FALSE}
 hw1_df
 ```
 
@@ -43,7 +47,7 @@ As above, obviously, only the variable "vec_numeric" and "vec_logical" have mean
 
 ## 1.3 Apply the "as." function to the other variables
 
-```{r apply as.numeric function, results='hide', warning=FALSE}
+```{r apply as.numeric function, results = 'hide', warning = FALSE}
 as.numeric(hw1_df$vec_logical)
 as.numeric(hw1_df$vec_char)
 as.numeric(hw1_df$vec_factor)
@@ -51,7 +55,7 @@ as.numeric(hw1_df$vec_factor)
 
 As we can observe, the logical variable and the factor variable can be coverted and displayed in numerical format. However, the character variable cannot be coerced since it cannot be classified as the other two do. "0" and "1" can replace "false" and "true" messege in the logical variable while the content in factor variable can be placed into 10 different types and displayed in 10 numbers.
 
-```{r convert character variable, results='hide', warning=FALSE}
+```{r convert character variable, results = 'hide', warning = FALSE}
 as.character(hw1_df$vec_char)
 as.numeric(hw1_df$vec_char)
 as.factor(hw1_df$vec_char)
@@ -60,7 +64,7 @@ as.logical(hw1_df$vec_char)
 
 The character variable can be converted into factor variable and be placed in a sequence as it has different levels. But it cannot be converted into numeric or logical variable since it does not contain numbers and it cannot be classified into two types either.
 
-```{r convert factor variable, results='hide', warning=FALSE}
+```{r convert factor variable, results = 'hide', warning = FALSE}
 as.factor(hw1_df$vec_factor)
 as.numeric(hw1_df$vec_factor)
 as.character(hw1_df$vec_factor)
@@ -69,3 +73,46 @@ as.logical(hw1_df$vec_factor)
 
 Similarly, the factor variable cannot be classified into two types, as a result, it cannot be converted into logical variable. It can be converted into numeric variable and shown in numbers according to the alphabetic order. It can also be converted into character variable since it is exactly a group of words.
 
+# Prblem 2
+
+## 2.1 Create a data frame
+
+```{r problem2_data_frame}
+set.seed(1)
+
+hw2_df = tibble(
+  x = rnorm(1000),
+  y = rnorm(1000),
+  vec_logical = x + y > 0,
+  vec_numeric = as.numeric(vec_logical),
+  vec_factor = as.factor(vec_logical)
+)
+```
+
+The size of the dataset is *`r dim(hw2_df)`*.
+The mean of the sample is *`r mean(hw2_df$x)`*.
+The median of the sample is *`r median(hw2_df$x)`*.
+The proportion of cases for which the logical vector is true *`r sum(hw2_df$vec_logical)/length(hw2_df$vec_logical)`*.
+
+## 2.2 Make scatterplots
+
+**The color of the first scatterplot points using the logical variable.**
+
+```{r scatterplot1}
+ggplot(hw2_df, aes(x = x, y = y, color = vec_logical)) + geom_point()
+ggsave("hw1_df2_plot_1.pdf", path = "./")
+```
+
+**The color of the second scatterplot points using the numeric variable.**
+
+```{r scatterplot2}
+ggplot(hw2_df, aes(x = x, y = y, color = vec_numeric)) + geom_point()
+```
+
+**The color of the third scatterplot points using the factor variable.**
+
+```{r scatterplot3}
+ggplot(hw2_df, aes(x = x, y = y, color = vec_factor)) + geom_point()
+```
+
+As we can see in the plots, the boundary line of two different colors is _y = x_. Above the line are the points that _x + y > 0_, while below the line are those _x + y < 0_. Since both the numeric vector and factor vector are created by coercing the logical vector, all the three scatterplots share the same boundary line. 
